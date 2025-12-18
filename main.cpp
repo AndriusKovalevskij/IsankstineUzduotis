@@ -14,12 +14,17 @@ int main() {
     cin >> choice;
 
     ifstream inputFile(inputFileName);
+    if (!inputFile.is_open()) {
+        cerr << "Nepavyko atidaryti failo: " << inputFileName << endl;
+        return 1;
+    }
+
     stringstream buffer;
     buffer << inputFile.rdbuf();
     string text = buffer.str();
     inputFile.close();
 
-    map<string, wordInfo> wordInfo = countWords(inputFileName);
+    map<string, wordInfo> wordInfo = countWords(text);
 
     if (choice == 't') {
         writeWordInfoToTerminal(wordInfo, text);

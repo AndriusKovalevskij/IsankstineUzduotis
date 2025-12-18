@@ -21,7 +21,7 @@ struct wordInfo {
 };
 
 string cleanWord(const string& word);
-map<string, wordInfo> countWords(const string& fileName);
+map<string, wordInfo> countWords(const string& text);
 void writeWordInfoToFile(const map<string, wordInfo>& wordInfo, const string& fileName, const string& text);
 void writeWordInfoToTerminal(const map<string, wordInfo>& wordInfo, const string& text);
 vector<string> extractURLs(const string& text);

@@ -10,34 +10,28 @@ string cleanWord(const string& word) {
     return cleaned;
 }
 
-map<string, wordInfo> countWords(const string& fileName) {
-    ifstream inputFile(fileName);
-
-    if (!inputFile.is_open()) {
-        throw runtime_error("Nepavyko atidaryti input failo: " + fileName);
-    }
-
-    map<string, wordInfo> wordInfo;
+map<string, wordInfo> countWords(const string& text) {
+    map<string, wordInfo> words;
+    stringstream textStream(text);
     string line;
-    int lineNumbers = 0;
+    int lineNumber = 0;
 
-    while (getline(inputFile, line)) {
-        lineNumbers++;
+    while (getline(textStream, line)) {
+        lineNumber++;
 
-        stringstream ss(line);
+        stringstream lineStream(line);
         string word;
 
-        while (ss >> word) {
+        while (lineStream >> word) {
             string cleanedWord = cleanWord(word);
             if (!cleanedWord.empty()) {
-                wordInfo[cleanedWord].count++;
-                wordInfo[cleanedWord].lineNumbers.insert(lineNumbers);
+                words[cleanedWord].count++;
+                words[cleanedWord].lineNumbers.insert(lineNumber);
             }
         }
     }
 
-    inputFile.close();
-    return wordInfo;
+    return words;
 }
 
 vector<string> extractURLs(const string& text) {
@@ -80,7 +74,7 @@ void writeWordInfoToFile(const map<string, wordInfo>& wordInfo, const string& fi
     outputFile << "------------------------------------------------------------------------------" << endl;
     outputFile << "URLs:" << endl;
 
-        for (const auto& url : urls) {
+    for (const auto& url : urls) {
         outputFile << url << endl;
     }
 
