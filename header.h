@@ -8,12 +8,19 @@
 #include <string>
 #include <cctype>
 #include <stdexcept>
+#include <set>
+#include <iomanip>
 
 using namespace std;
 
+struct wordInfo {
+    int count;
+    set<int> lineNumbers;
+};
+
 string cleanWord(const string& word);
-map<string, int> countWords(const string& fileName);
-void writeWordDataToFile(const map<string, int>& wordCounts, const string& fileName);
-void writeWordDataToTerminal(const map<string, int>& wordCounts);
+map<string, wordInfo> countWords(const string& fileName);
+void writeWordInfoToFile(const map<string, wordInfo>& wordInfo, const string& fileName);
+void writeWordInfoToTerminal(const map<string, wordInfo>& wordInfo);
 
 #endif // HEADER_H_INCLUDED
