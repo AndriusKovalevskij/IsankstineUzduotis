@@ -3,25 +3,26 @@
 
 int main() {
 
-    std::string inputFile;
-    std::string outputFile;
+    string inputFileName;
+    string outputFileName;
 
-    std::cout << "Irasykite failo su tekstu pavadinima (pvz.: text1.txt): ";
-    std::getline(std::cin, inputFile);
+    char choice;
 
-    map<string, int> wordCounts = countWords(inputFileName);
+    cout << "Irasykite failo su tekstu pavadinima (pvz.: text1.txt): ";
+    cin >> inputFileName;
 
-    cout << "Ar isvesti rezultatus i terminala? (taip/ne) ";
-    std::char choice;
-    std::getline(std::cin, choice);
+    map<string, wordInfo> wordInfo = countWords(inputFileName);
 
-    if (choice == 'taip') {
-        writeWordCountsToTerminal(wordCounts);
+    cout << "Ar isvesti rezultatus i terminala? (taip-t/ne-n) ";
+    cin >> choice;
+
+    if (choice == 't') {
+        writeWordInfoToTerminal(wordInfo);
     }
     else {
         cout << "Output file name: ";
         cin >> outputFileName;
-        writeWordCountsToFile(wordCounts, outputFileName);
+        writeWordInfoToFile(wordInfo, outputFileName);
     }
 
     cout << "Padaryta." << endl;
