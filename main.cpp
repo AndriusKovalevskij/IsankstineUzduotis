@@ -1,5 +1,4 @@
 #include "header.h"
-#include <iostream>
 
 int main() {
 
@@ -11,20 +10,28 @@ int main() {
     cout << "Irasykite failo su tekstu pavadinima (pvz.: text1.txt): ";
     cin >> inputFileName;
 
-    map<string, wordInfo> wordInfo = countWords(inputFileName);
-
     cout << "Ar isvesti rezultatus i terminala? (taip-t/ne-n) ";
     cin >> choice;
 
+    ifstream inputFile(inputFileName);
+    stringstream buffer;
+    buffer << inputFile.rdbuf();
+    string text = buffer.str();
+    inputFile.close();
+
+    map<string, wordInfo> wordInfo = countWords(inputFileName);
+
     if (choice == 't') {
-        writeWordInfoToTerminal(wordInfo);
+        writeWordInfoToTerminal(wordInfo, text);
     }
     else {
         cout << "Output file name: ";
         cin >> outputFileName;
-        writeWordInfoToFile(wordInfo, outputFileName);
+        writeWordInfoToFile(wordInfo, outputFileName, text);
     }
 
-    cout << "Padaryta." << endl;
+    cout << "PABAIGA." << endl;
+
     return 0;
+
 }
